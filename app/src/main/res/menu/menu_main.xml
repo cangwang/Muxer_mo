@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.ScreenRecordActivity" >
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:icon="@android:drawable/ic_menu_set_as"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_record"
+        android:title="@string/action_record"
+        android:icon="@android:drawable/ic_input_add"
+        android:orderInCategory="90"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_read"
+        android:title="@string/action_read"
+        android:orderInCategory="80"
+        app:showAsAction="never"/>
+</menu>
