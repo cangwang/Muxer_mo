@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">record_setting</string>
+    <string name="choose_dir_txt">选择录制保存路径</string>
+    <string name="setting_save">保存</string>
+    <string name="setting_cancel">取消</string>
+    <string name="setting_return_content">返回上一级目录</string>
+</resources>

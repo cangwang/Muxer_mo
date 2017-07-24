@@ -1,32 +1,38 @@
 package material.com.muxer.activity;
 
+import android.animation.AnimatorSet;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import cangwang.com.base.modulebus.ELPublicApi;
+import cangwang.com.base.modulebus.ELPublicHelper;
+import cangwang.com.base.service.ScreenRecorderService;
 import material.com.muxer.R;
+import material.com.muxer.activity.presenter.ScreenRecordPresenter;
 import material.com.muxer.activity.view.IScreenRecordView;
 import material.com.muxer.config.PageConfig;
-import material.com.muxer.fragment.read.ReadFragment;
-import material.com.muxer.fragment.record.RecordFragment;
 import material.com.muxer.adapter.RecordPagerAdapter;
-import material.com.muxer.fragment.setting.SettingFragment;
 import material.com.muxer.receiver.MyBroadcastReceiver;
-import material.com.muxer.service.ScreenRecorderService;
 
 import android.content.IntentFilter;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class ScreenRecordActivity extends AppCompatActivity implements IScreenRecordView{
     private static final boolean DEBUG = false;
+    public static final int REQUEST_CODE_SCREEN_CAPTURE = 1;
     private static final String TAG = "ScreenRecordActivity";
 
     private MyBroadcastReceiver mReceiver;
@@ -39,13 +45,14 @@ public final class ScreenRecordActivity extends AppCompatActivity implements ISc
     private List<Fragment> pageFagments = new ArrayList<Fragment>();
 
     private RecordPagerAdapter recordPagerAdapter;
+    private ScreenRecordPresenter presenter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (DEBUG) Log.v(TAG, "onCreate:");
         setContentView(R.layout.activity_main);
-
+        presenter = new ScreenRecordPresenter(this,this);
         initView();
 
         if (mReceiver == null)
@@ -53,6 +60,7 @@ public final class ScreenRecordActivity extends AppCompatActivity implements ISc
         final IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ScreenRecorderService.ACTION_QUERY_STATUS_RESULT);
         registerReceiver(mReceiver, intentFilter);
+
     }
 
     public void initView(){
@@ -70,12 +78,24 @@ public final class ScreenRecordActivity extends AppCompatActivity implements ISc
             mTabLayout.addTab(mTabLayout.newTab().setText(title));
         }
 
-        Fragment tab0 = new RecordFragment();
-        Fragment tab1 = new ReadFragment();
-        Fragment tab2 = new SettingFragment();
-        pageFagments.add(tab0);
-        pageFagments.add(tab1);
-        pageFagments.add(tab2);
+        try {
+            //遍历Fragment地址
+            for(String address:PageConfig.fragmentNames){
+                //反射获得Class
+                Class clazz = Class.forName(address);
+                //创建类
+                Fragment tab = (Fragment) clazz.newInstance();
+                //添加到viewPagerAdapter的资源
+                pageFagments.add(tab);
+            }
+
+        }catch (ClassNotFoundException e){
+
+        }catch (IllegalAccessException e){
+
+        }catch (InstantiationException e){
+
+        }
 
         mViewPager = (ViewPager) findViewById(R.id.record_view_pager);
         recordPagerAdapter = new RecordPagerAdapter(getSupportFragmentManager(),pageFagments,pageTitles);
@@ -97,19 +117,23 @@ public final class ScreenRecordActivity extends AppCompatActivity implements ISc
 
             }
         });
+        //全部预加载
+        mViewPager.setOffscreenPageLimit(pageFagments.size());
 
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setTabsFromPagerAdapter(recordPagerAdapter);
     }
 
 
 
     public void updateRecording(boolean isRecording, boolean isPausing){
-        for (Fragment fragment:pageFagments){
-            if(fragment instanceof RecordFragment){
-                ((RecordFragment) fragment).updateRecording(isRecording,isPausing);
-            }
-        }
+//        for (Fragment fragment:pageFagments){
+//            if(fragment instanceof RecordFragment){
+//                ((RecordFragment) fragment).updateRecording(isRecording,isPausing);
+//            }
+//        }
+//        EventBus.getDefault().post(new UpdateRecordViewEvent(isRecording,isPausing));
+//        ((RecordFragment)pageFagments.get(0)).getPresenter().updateRecording(isRecording,isPausing);
+        ELPublicHelper.getInstance().getModuleApi(ELPublicApi.RecordApi.class).updateRecordView(isRecording,isPausing);
     }
 
     @Override
@@ -154,7 +178,30 @@ public final class ScreenRecordActivity extends AppCompatActivity implements ISc
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         unregisterReceiver(mReceiver);
+        super.onDestroy();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG,"requsetCode = "+requestCode+",resultCode = " + resultCode+", data = "+data);
+        super.onActivityResult(requestCode, resultCode, data);
+        if (REQUEST_CODE_SCREEN_CAPTURE == requestCode) {
+//            recordPresenter.startScreenRecorder(resultCode, data);
+            if (resultCode != Activity.RESULT_OK) {
+                // when no permission
+                Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            final Intent intent = new Intent(this, ScreenRecorderService.class);
+            intent.setAction(ScreenRecorderService.ACTION_START);
+            intent.putExtra(ScreenRecorderService.EXTRA_RESULT_CODE, resultCode);
+            intent.putExtras(data);
+            startService(intent);
+        }
+    }
+    ArrayMap<String,String> map = new ArrayMap<>();
+
+
 }

@@ -1,0 +1,5 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="settings_item_margin_left">10dp</dimen>
+    <dimen name="settings_item_margin_top">10dp</dimen>
+</resources>

@@ -12,4 +12,9 @@
     <string name="record_height">默认高度:屏幕高度</string>
     <string name="record_density">默认分辨率:60fs</string>
     <string name="record_detail_content">详细参数设定</string>
+    <string name="setting_confrim">确定</string>
+    <string name="choose_dir_txt">选择录制保存路径</string>
+    <string name="setting_save">保存</string>
+    <string name="setting_cancel">取消</string>
+    <string name="setting_return_content">返回上一级目录</string>
 </resources>

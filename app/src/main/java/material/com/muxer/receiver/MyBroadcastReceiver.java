@@ -7,8 +7,8 @@ import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
+import cangwang.com.base.service.ScreenRecorderService;
 import material.com.muxer.activity.ScreenRecordActivity;
-import material.com.muxer.service.ScreenRecorderService;
 
 /**
  * Created by air on 16/7/6.

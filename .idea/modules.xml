@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Muxer_module.iml" filepath="$PROJECT_DIR$/Muxer_module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/record_read/record_read.iml" filepath="$PROJECT_DIR$/record_read/record_read.iml" />
+      <module fileurl="file://$PROJECT_DIR$/record_record/record_record.iml" filepath="$PROJECT_DIR$/record_record/record_record.iml" />
+      <module fileurl="file://$PROJECT_DIR$/record_setting/record_setting.iml" filepath="$PROJECT_DIR$/record_setting/record_setting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recordsdk/recordsdk.iml" filepath="$PROJECT_DIR$/recordsdk/recordsdk.iml" />
+    </modules>
+  </component>
+</project>

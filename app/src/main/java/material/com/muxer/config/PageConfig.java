@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
+import cangwang.com.record_record.record.RecordFragment;
 import material.com.muxer.R;
 
 /**
@@ -20,4 +21,17 @@ public class PageConfig {
         pageTitles.add(context.getString(R.string.action_settings));
         return pageTitles;
     }
+
+    private static final String RecordFragment = "cangwang.com.record_record.record.RecordFragment";
+
+    private static final String ReadFragment = "cangwang.com.record_read.read.ReadFragment";
+
+    private static final String SettingFragment = "cangwang.com.record_setting.setting.SettingFragment";
+
+    public static String[] fragmentNames = {
+            RecordFragment,
+            ReadFragment,
+            SettingFragment,
+    };
+
 }

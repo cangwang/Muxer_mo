@@ -1,33 +1,91 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '22.0.1'
-
+    buildToolsVersion '23.0.3'
     defaultConfig {
         applicationId "material.com.muxer"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+//        jackOptions {
+//            enabled true
+//        }
+        multiDexEnabled true
     }
+
+    signingConfigs {
+        release {
+            storeFile file('../debug.keystore')
+            storePassword 'android'
+            keyAlias 'my_alias'
+            keyPassword 'android'
+        }
+    }
+
     buildTypes {
+        debug{
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+    productFlavors {
     }
 }
 
+afterEvaluate{
+    println "afterEvaluate"
+    tasks.matching {
+        it.name.startsWith('dex')
+    }.each {dx ->
+        def listFile = project.rootDir.absolutePath +'/app/maindexlist.txt'
+        println "root dir:" + project.rootDir.absolutePath
+        println "dex task found: " + dx.name
+        if (project.android.defaultConfig.multiDexEnabled) {
+            if (dx.additionalParameters == null) {
+                dx.additionalParameters = []
+            }
+//            dx.additionalParameters += '--minimal-main-dex'
+//            // for test multidex dex , here set max idx 10000, this apk total methods is about 22251.
+//            dx.additionalParameters += '--set-max-idx-number=10000'
+//            dx.additionalParameters += '--multi-dex'
+            dx.additionalParameters += '--multi-dex'
+            dx.additionalParameters += '--main-dex-list=' + listFile
+            dx.additionalParameters += '--set-max-idx-number=10000'
+            dx.additionalParameters += '--minimal-main-dex'
+
+        }
+    }
+
+}
+
+greendao{
+    targetGenDir 'src/main/java'
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:design:23.2.0'
     compile 'com.cangwang.android:rx-easy:1.0'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'org.greenrobot:greendao:3.2.0'
     compile files('libs/RecordSDK.jar')
+    compile project(':record_read')
+    compile project(':record_record')
+    compile project(':record_setting')
 }

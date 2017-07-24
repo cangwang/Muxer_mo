@@ -1,0 +1,39 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/read_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:layout_marginLeft="10dp"
+    android:orientation="vertical" >
+    <ImageView
+        android:id="@+id/read_file_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_launcher"
+        />
+    <TextView
+        android:id="@+id/record_file_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/read_file_img"
+        android:text="name"/>
+    <TextView
+        android:id="@+id/record_file_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/record_file_name"
+        android:layout_marginTop="3dp"
+        android:text="size"
+        />
+    <!--<TextView-->
+        <!--android:id="@+id/record_create_time"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/record_file_name"-->
+        <!--android:layout_marginTop="3dp"-->
+        <!--android:text="time"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--/>-->
+</RelativeLayout>

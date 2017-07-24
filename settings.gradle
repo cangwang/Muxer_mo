@@ -1,1 +1,1 @@
-include ':app', ':recordsdk'
+include ':app', ':recordsdk', ':record_setting', ':record_read', ':record_record', ':base'

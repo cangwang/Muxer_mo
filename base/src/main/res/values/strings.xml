@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">WZ录制</string>
+    <string name="action_settings">设置</string>
+    <string name="action_record">录制</string>
+    <string name="action_read">观看</string>
+    <string name="record">录制</string>
+    <string name="stop">停止</string>
+    <string name="resume">恢复</string>
+    <string name="pause">暂停</string>
+    <string name="default_record_mode">默认录制方式</string>
+    <string name="record_width">默认宽度:屏幕宽度</string>
+    <string name="record_height">默认高度:屏幕高度</string>
+    <string name="record_density">默认分辨率:60fs</string>
+    <string name="record_detail_content">详细参数设定</string>
+    <string name="setting_confrim">确定</string>
+</resources>

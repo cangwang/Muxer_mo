@@ -1,0 +1,214 @@
+android_resource(
+	name = 'res_main',
+	res = 'src/main/res',
+	package = 'material.com.muxer',
+	resource_union = True,
+	deps = [
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.design-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.multidex-1.0.1.aar',
+		'//.okbuck/cache:com.android.support.recyclerview-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-v4-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.cangwang.android.rx-easy-1.0.aar',
+		'//base:res_main',
+		'//record_read:res_main',
+		'//record_record:res_main',
+		'//record_setting:res_main',
+	],
+	visibility = [
+		'PUBLIC',
+	],
+)
+
+android_build_config(
+	name = 'build_config_debug',
+	package = 'material.com.muxer',
+	values = [
+		'String APPLICATION_ID = "material.com.muxer"',
+		'String BUILD_TYPE = "debug"',
+		'String FLAVOR = ""',
+		'int VERSION_CODE = 1',
+		'String VERSION_NAME = "1.0"',
+	],
+	visibility = [
+		'PUBLIC',
+	],
+)
+
+android_library(
+	name = 'src_debug',
+	srcs = glob([
+		'src/main/java/**/*.java',
+	]),
+	manifest = 'build/okbuck/debug/AndroidManifest.xml',
+	source = '7',
+	target = '7',
+	deps = [
+		'//.okbuck/cache:app.RecordSDK.jar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.design-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.multidex-1.0.1.aar',
+		'//.okbuck/cache:com.android.support.recyclerview-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-annotations-23.4.0.jar',
+		'//.okbuck/cache:com.android.support.support-v4-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.cangwang.android.rx-easy-1.0.aar',
+		'//.okbuck/cache:org.greenrobot.eventbus-3.0.0.jar',
+		'//.okbuck/cache:org.greenrobot.greendao-3.2.0.jar',
+		'//.okbuck/cache:org.greenrobot.greendao-api-3.2.0.jar',
+		'//base:res_main',
+		'//base:src_release',
+		'//record_read:res_main',
+		'//record_read:src_release',
+		'//record_record:res_main',
+		'//record_record:src_release',
+		'//record_setting:res_main',
+		'//record_setting:src_release',
+		':build_config_debug',
+		':res_main',
+	],
+	visibility = [
+		'PUBLIC',
+	],
+)
+
+android_manifest(
+	name = 'manifest_debug',
+	skeleton = 'build/okbuck/debug/AndroidManifest.xml',
+	deps = [
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.design-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.multidex-1.0.1.aar',
+		'//.okbuck/cache:com.android.support.recyclerview-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-v4-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.cangwang.android.rx-easy-1.0.aar',
+		'//base:src_release',
+		'//record_read:src_release',
+		'//record_record:src_release',
+		'//record_setting:src_release',
+	],
+	visibility = [
+		'PUBLIC',
+	],
+)
+
+android_binary(
+	name = 'bin_debug',
+	manifest = ':manifest_debug',
+	keystore = '//.okbuck/keystore/app:key_store_debug.keystore',
+	use_split_dex = True,
+	linear_alloc_hard_limit = 7194304,
+	manifest_entries = {
+		'placeholders': {
+			'applicationId': 'material.com.muxer',
+		},
+	},
+	deps = [
+		':res_main',
+		':src_debug',
+	],
+	visibility = [
+		'PUBLIC',
+	],
+)
+
+android_build_config(
+	name = 'build_config_release',
+	package = 'material.com.muxer',
+	values = [
+		'String APPLICATION_ID = "material.com.muxer"',
+		'String BUILD_TYPE = "release"',
+		'String FLAVOR = ""',
+		'int VERSION_CODE = 1',
+		'String VERSION_NAME = "1.0"',
+	],
+	visibility = [
+		'PUBLIC',
+	],
+)
+
+android_library(
+	name = 'src_release',
+	srcs = glob([
+		'src/main/java/**/*.java',
+	]),
+	manifest = 'build/okbuck/release/AndroidManifest.xml',
+	source = '7',
+	target = '7',
+	deps = [
+		'//.okbuck/cache:app.RecordSDK.jar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.design-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.multidex-1.0.1.aar',
+		'//.okbuck/cache:com.android.support.recyclerview-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-annotations-23.4.0.jar',
+		'//.okbuck/cache:com.android.support.support-v4-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.cangwang.android.rx-easy-1.0.aar',
+		'//.okbuck/cache:org.greenrobot.eventbus-3.0.0.jar',
+		'//.okbuck/cache:org.greenrobot.greendao-3.2.0.jar',
+		'//.okbuck/cache:org.greenrobot.greendao-api-3.2.0.jar',
+		'//base:res_main',
+		'//base:src_release',
+		'//record_read:res_main',
+		'//record_read:src_release',
+		'//record_record:res_main',
+		'//record_record:src_release',
+		'//record_setting:res_main',
+		'//record_setting:src_release',
+		':build_config_release',
+		':res_main',
+	],
+	visibility = [
+		'PUBLIC',
+	],
+)
+
+android_manifest(
+	name = 'manifest_release',
+	skeleton = 'build/okbuck/release/AndroidManifest.xml',
+	deps = [
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.design-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.multidex-1.0.1.aar',
+		'//.okbuck/cache:com.android.support.recyclerview-v7-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-v4-23.4.0.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-23.4.0.aar',
+		'//.okbuck/cache:com.cangwang.android.rx-easy-1.0.aar',
+		'//base:src_release',
+		'//record_read:src_release',
+		'//record_record:src_release',
+		'//record_setting:src_release',
+	],
+	visibility = [
+		'PUBLIC',
+	],
+)
+
+android_binary(
+	name = 'bin_release',
+	manifest = ':manifest_release',
+	keystore = '//.okbuck/keystore/app:key_store_release.keystore',
+	use_split_dex = True,
+	linear_alloc_hard_limit = 7194304,
+	manifest_entries = {
+		'placeholders': {
+			'applicationId': 'material.com.muxer',
+		},
+	},
+	deps = [
+		':res_main',
+		':src_release',
+	],
+	visibility = [
+		'PUBLIC',
+	],
+)
+
